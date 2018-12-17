@@ -3,6 +3,7 @@ function rem_init(init = {
 	enable: true, //是否开启自动转换功能
 	size: 20 //转换大小px = rem 适配为苹果6
 }) {
+	init.enable === undefined ? init.enable = true : ''
 	if (!init.enable) {
 		console.warn('暂未开启转换rem')
 		return
@@ -20,7 +21,12 @@ function rem_init(init = {
 	})
 	// 内置的link获取style
 	LINK.forEach((item, i) => {
-		loadXMLDoc(item.href)
+		var patt1 = /(\w+):\/\/([^/:]+)(:\d*)?([^# ]*)/;
+		// 判断只处理本地的数据
+		if(item.href.match(patt1)[2] === location.hostname){
+			loadXMLDoc(item.href)
+		}
+		
 	})
 	// 转换rem
 	function enableZd() {
@@ -68,7 +74,6 @@ function rem_init(init = {
 		}
 		xmlhttp.onreadystatechange = function () {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				console.log(xmlhttp.responseText)
 				div.innerHTML = restReq(xmlhttp.responseText)
 				head.appendChild(div)
 			}
@@ -78,4 +83,6 @@ function rem_init(init = {
 	}
 	return
 }
-rem_init()
+rem_init({
+	size: 40
+})
