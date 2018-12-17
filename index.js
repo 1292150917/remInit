@@ -1,5 +1,5 @@
 // 暂未解决：1.外部css  2.内置rem
-function rem_init(init = {
+function remInit(init = {
 	enable: true, //是否开启自动转换功能
 	size: 20 //转换大小px = rem 适配为苹果6
 }) {
@@ -83,6 +83,3 @@ function rem_init(init = {
 	}
 	return
 }
-rem_init({
-	size: 40
-})
